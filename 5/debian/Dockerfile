@@ -124,8 +124,12 @@ COPY docker-entrypoint.sh /usr/local/bin
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 RUN cd "$GHOST_INSTALL"; \
-	npm install ghost-gcp-storage-adapter; \
-	cp -r node_modules/ghost-gcp-storage-adapter versions/5.94.0/core/server/adapters/storage/ghost-gcp-storage-adapter;
+	apt-get update && apt-get install -y git; \
+	# installs our forked storage adapter that allows for uploads to buckets with uniform access
+	npm install git+https://github.com/SZNS/ghost-gcp-storage-adapter.git; \
+	cp -r node_modules/ghost-gcp-storage-adapter versions/5.94.0/core/server/adapters/storage/ghost-gcp-storage-adapter; \
+	# cleans cached package list files
+	rm -rf /var/lib/apt/lists/*;
 
 EXPOSE 2368
 CMD ["node", "current/index.js"]
