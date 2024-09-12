@@ -123,5 +123,9 @@ VOLUME $GHOST_CONTENT
 COPY docker-entrypoint.sh /usr/local/bin
 ENTRYPOINT ["docker-entrypoint.sh"]
 
+RUN cd "$GHOST_INSTALL"; \
+	npm install ghost-gcp-storage-adapter; \
+	cp -r node_modules/ghost-gcp-storage-adapter versions/5.94.0/core/server/adapters/storage/ghost-gcp-storage-adapter;
+
 EXPOSE 2368
 CMD ["node", "current/index.js"]
