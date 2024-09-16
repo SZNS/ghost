@@ -123,5 +123,10 @@ VOLUME $GHOST_CONTENT
 COPY docker-entrypoint.sh /usr/local/bin
 ENTRYPOINT ["docker-entrypoint.sh"]
 
+RUN cd "$GHOST_INSTALL"; \
+	# Installs GCS adapter
+	npm install @danmasta/ghost-gcs-adapter; \
+	cp -r node_modules/@danmasta/ghost-gcs-adapter versions/5.94.0/core/server/adapters/storage/gcs;
+
 EXPOSE 2368
 CMD ["node", "current/index.js"]

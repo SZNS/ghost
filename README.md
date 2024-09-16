@@ -1,4 +1,7 @@
-# https://github.com/docker-library/ghost
+# This is a FORK of the Ghost Docker Image at https://github.com/docker-library/ghost
+Steps were added to the Debian Dockerfile in order to install the [GCS Adapter](https://github.com/danmasta/ghost-gcs-adapter) as part of building the Ghost container image.
+
+# Below information is from the original source repository:
 
 ## Maintained by: [the Docker Community](https://github.com/docker-library/ghost)
 
